@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://sabina:inheritance@devconnector-vzs3c.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "mysecret"
+}
