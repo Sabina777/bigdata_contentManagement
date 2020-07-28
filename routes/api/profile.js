@@ -7,7 +7,7 @@ const request = require("request");
 const { check, validationResult } = require("express-validator");
 //@route -GET api/profile/me
 //@desc =get current users profiles
-//@access-Private
+
 router.get("/me", auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({
