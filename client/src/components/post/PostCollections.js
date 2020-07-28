@@ -1,15 +1,21 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import Post from "../layout/Post";
 import { getPosts } from "../../actions/post";
+import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 const PostCollections = ({
   getPosts,
   auth: { user },
   post: { posts, loading },
 }) => {
+  const [index, setIndex] = useState(0);
+
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
   useEffect(() => {
     getPosts();
   }, []);
@@ -29,6 +35,22 @@ const PostCollections = ({
           {posts.map((post) => (
             <Post name={post.name} text={post.text} date={post.date} />
           ))}
+
+          <Carousel activeIndex={index} onSelect={handleSelect}>
+            {posts.map((post) => (
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg"
+                  alt="First slide"
+                />
+                <Carousel.Caption>
+                  <h3>{post.name}</h3>
+                  <p>{post.text}</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))}
+          </Carousel>
         </Fragment>
       ) : (
         <Fragment>
