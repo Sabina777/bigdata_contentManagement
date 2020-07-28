@@ -29,10 +29,13 @@ const DashBoard = ({
         <Fragment>
           <p>You havent yet setup a profile. Please add some info.</p>
           <Link to="/get-posts" className=" btn btn-primary my-1">
-            Go to Post Collections
+            View Post Collections
           </Link>
           <Link to="/create-post" className=" btn btn-primary my-1">
             Wanna create new posts?
+          </Link>
+          <Link to="/my-posts" className=" btn btn-primary my-1">
+            View my posts
           </Link>
         </Fragment>
       )}

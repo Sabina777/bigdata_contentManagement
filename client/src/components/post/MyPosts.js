@@ -2,14 +2,11 @@ import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
-import Post from "../layout/Post";
 import { getPosts } from "../../actions/post";
 import { Link } from "react-router-dom";
-const PostCollections = ({
-  getPosts,
-  auth: { user },
-  post: { posts, loading },
-}) => {
+const MyPosts = ({ getPosts, auth: { user }, post: { posts, loading } }) => {
+  const myPosts = posts.find((post) => post.user === user.name);
+  console.log(myPosts);
   useEffect(() => {
     getPosts();
   }, []);
@@ -24,10 +21,18 @@ const PostCollections = ({
         Welcome {user && user.name}
       </p>
 
-      {posts !== null ? (
+      {posts.find((post) => post.user === user) !== null ? (
         <Fragment>
-          {posts.map((post) => (
-            <Post name={post.name} text={post.text} date={post.date} />
+          {myPosts.map((post) => (
+            <Fragment>
+              <p className="lead">This is the post created by {post.name}</p>
+              <p className="lead">The contents of the post is:{post.text}</p>
+              <p className="lead">Created on:{post.date}</p>
+              <p className="lead">The comments on the post are:</p>
+              {post.comments.map((comment) => (
+                <p>{comment.text}</p>
+              ))}
+            </Fragment>
           ))}
         </Fragment>
       ) : (
@@ -42,7 +47,7 @@ const PostCollections = ({
   );
 };
 
-PostCollections.propTypes = {
+MyPosts.propTypes = {
   getPosts: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   posts: PropTypes.object.isRequired,
@@ -53,4 +58,4 @@ const mapStateToProps = (state) => ({
   post: state.post,
 });
 
-export default connect(mapStateToProps, { getPosts })(PostCollections);
+export default connect(mapStateToProps, { getPosts })(MyPosts);

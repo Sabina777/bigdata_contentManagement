@@ -26,7 +26,7 @@ export const getPosts = () => async (dispatch) => {
 };
 
 //get current user posts
-export const getCurrentPosts = () => async (dispatch) => {
+export const getMyPosts = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/posts/:id");
     dispatch({
