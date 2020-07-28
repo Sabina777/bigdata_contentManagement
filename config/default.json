@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://sabina:inheritance@devconnector-vzs3c.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "mysecret"
+  "jwtSecret": "mysecret",
+  "githubClientId": "3502a328a98d741f1e8d",
+  "githubSecret": "f55a9530217e4f25bb26acffe05c904d9e611cbf"
 }

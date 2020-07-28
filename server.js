@@ -13,6 +13,6 @@ app.get("/", (req, res) => res.send("API is running"));
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/posts", require("./routes/api/posts"));
 app.use("/api/auth", require("./routes/api/auth"));
-// app.use("/api/profile", require("./routes/api/profile"));
-
+app.use("/api/profile", require("./routes/api/profile"));
+// app.use("/api/social", require("./routes/api/profile"));
 app.listen(PORT, () => console.log(`Server Started on ${PORT}`));
