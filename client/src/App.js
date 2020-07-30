@@ -7,7 +7,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Alert from "./components/layout/Alert";
 //redux
-import CreatePost from "./components/post/PostCollections";
+// import CreatePost from "./components/post/PostCollections";
 import DashBoard from "./components/dashboard/DashBoard";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import { Provider } from "react-redux";
@@ -15,9 +15,7 @@ import store from "./store";
 
 import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
-import PostCollections from "./components/post/PostCollections";
-import AddPost from "./components/post/AddPost";
-import MyPosts from "./components/post/MyPosts";
+import Posts from "./components/posts/Posts";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -38,9 +36,7 @@ const App = () => {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/dashboard" component={DashBoard} />
-              <Route exact path="/get-posts" component={PostCollections} />
-              <PrivateRoute exact path="/create-post" component={AddPost} />
-              <PrivateRoute exact path="/my-posts" component={MyPosts} />
+              <PrivateRoute exact path="/posts" component={Posts} />
             </Switch>
           </section>
         </Fragment>

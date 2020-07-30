@@ -5,8 +5,6 @@ import Spinner from "../layout/Spinner";
 import { getPosts } from "../../actions/post";
 import { Link } from "react-router-dom";
 const MyPosts = ({ getPosts, auth: { user }, post: { posts, loading } }) => {
-  const myPosts = posts.find((post) => post.user === user.name);
-  console.log(myPosts);
   useEffect(() => {
     getPosts();
   }, []);

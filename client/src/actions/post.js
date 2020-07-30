@@ -1,18 +1,12 @@
 import axios from "axios";
-import {
-  GET_POSTS,
-  POST_ERROR,
-  GET_POST,
-  CLEAR_POST,
-  CREATE_POST,
-} from "./types";
+import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST } from "./types";
 import { setAlert } from "./alert";
 
-//get all posts
+//get  posts
 export const getPosts = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/posts");
-
+    console.log(res);
     dispatch({
       type: GET_POSTS,
       payload: res.data,
@@ -25,13 +19,14 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
-//get current user posts
-export const getMyPosts = () => async (dispatch) => {
+//add like
+export const addLike = (postId) => async (dispatch) => {
   try {
-    const res = await axios.get("/api/posts/:id");
+    const res = await axios.put(`/api/posts/like/${postId}`);
+    console.log(res);
     dispatch({
-      type: GET_POST,
-      payload: res.data,
+      type: UPDATE_LIKES,
+      payload: { postId, likes: res.data },
     });
   } catch (err) {
     dispatch({
@@ -41,6 +36,37 @@ export const getMyPosts = () => async (dispatch) => {
   }
 };
 
-export const clearPost = () => (dispatch) => {
-  dispatch({ type: CLEAR_POST });
+//remove like
+export const removeLike = (postId) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/posts/unlike/${postId}`);
+    console.log(res);
+    dispatch({
+      type: UPDATE_LIKES,
+      payload: { postId, likes: res.data },
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//delete post
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/posts/${id}`);
+
+    dispatch({
+      type: DELETE_POST,
+      payload: { id },
+    });
+    dispatch(setAlert("Post removed", "success"));
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
 };
