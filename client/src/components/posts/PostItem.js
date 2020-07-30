@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -11,6 +11,7 @@ const PostItem = ({
   removeLike,
   deletePost,
   post: { _id, text, name, avatar, user, likes, comments, date },
+  showActions,
 }) => {
   return (
     <div>
@@ -28,28 +29,38 @@ const PostItem = ({
           </Card.Text>
           <Card.Text>Likes:{likes.length}</Card.Text>
           <Card.Text>Comments:{comments.length}</Card.Text>
-          <Button
-            onClick={(e) => addLike(_id)}
-            value="Like"
-            type="button"
-            variant="outline-primary"
-          />
-          <Button
-            onClick={(e) => removeLike(_id)}
-            value="Unlike"
-            type="button"
-          />
-          <Button
-            onClick={(e) => deletePost(_id)}
-            value="Delete"
-            type="button"
-          />
+          {showActions && (
+            <Fragment>
+              <Button
+                onClick={(e) => addLike(_id)}
+                value="Like"
+                type="button"
+                variant="outline-primary"
+              />
+              <Button
+                onClick={(e) => removeLike(_id)}
+                value="Unlike"
+                type="button"
+              />
+              <Button
+                onClick={(e) => deletePost(_id)}
+                value="Delete"
+                type="button"
+              />
+              <Link to={`/posts/${_id}`}>
+                <span className="hide-sm">View Details</span>
+              </Link>
+            </Fragment>
+          )}
         </Card.Body>
       </Card>
     </div>
   );
 };
 
+PostItem.defaultProps = {
+  showActions: true,
+};
 PostItem.propTypes = {
   post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
