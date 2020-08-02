@@ -23,11 +23,10 @@ const DashBoard = ({ getPosts, auth: { user }, post: { loading, posts } }) => {
       {posts.map((post) => (
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
             width: 300,
-            height: 300,
-            border: "2px solid black",
+            // height: 300,
+            marginBottom: 20,
+            // border: "2px solid black",
             // margin: 10,
           }}
         >
@@ -42,10 +41,6 @@ const DashBoard = ({ getPosts, auth: { user }, post: { loading, posts } }) => {
                 This is a wider card with supporting text below as a natural
                 lead-in to additional content. This content is a little bit
                 longer. This is a wider card with supporting text below as a
-                natural lead-in to additional content. This content is a little
-                bit longer. This is a wider card with supporting text below as a
-                natural lead-in to additional content. This content is a little
-                bit longer.
               </Card.Text>
               <Card.Text>Last updated 3 mins ago</Card.Text>
             </Card.ImgOverlay>
