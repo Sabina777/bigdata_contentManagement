@@ -14,7 +14,7 @@ const PostItem = ({
   showActions,
 }) => {
   return (
-    <div>
+    <div style={{ margin: 20 }}>
       <Card style={{ width: "18rem" }}>
         <Card.Img
           variant="top"
@@ -31,22 +31,28 @@ const PostItem = ({
           <Card.Text>Comments:{comments.length}</Card.Text>
           {showActions && (
             <Fragment>
-              <Button
+              <button
+                type="button"
+                className="btn btn-primary"
                 onClick={(e) => addLike(_id)}
-                value="Like"
+              >
+                Like
+              </button>
+              <button
                 type="button"
-                variant="outline-primary"
-              />
-              <Button
+                className="btn btn-primary"
                 onClick={(e) => removeLike(_id)}
-                value="Unlike"
+              >
+                Unlike
+              </button>
+              <button
                 type="button"
-              />
-              <Button
+                className="btn btn-danger"
                 onClick={(e) => deletePost(_id)}
-                value="Delete"
-                type="button"
-              />
+              >
+                Delete
+              </button>
+
               <Link to={`/posts/${_id}`}>
                 <span className="hide-sm">View Details</span>
               </Link>

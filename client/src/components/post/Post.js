@@ -2,11 +2,11 @@ import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
-import { getPost, getPosts } from "../../actions/post";
+import { getPost, deleteComment } from "../../actions/post";
 import PostItem from "../posts/PostItem";
 import CommentForm from "../post/CommentForm";
 import CommentItem from "../post/CommentItem";
-const Post = ({ getPost, post: { post, loading }, match }) => {
+const Post = ({ getPost, deleteComment, post: { post, loading }, match }) => {
   useEffect(() => {
     getPost(match.params.id);
   }, [getPost]);
@@ -29,8 +29,9 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
 Post.propTypes = {
   getPost: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
+  deleteComment: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   post: state.post,
 });
-export default connect(mapStateToProps, { getPost })(Post);
+export default connect(mapStateToProps, { getPost, deleteComment })(Post);
