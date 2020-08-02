@@ -2,56 +2,69 @@ import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
-import { getCurrentProfile } from "../../actions/profile";
+import { getPosts } from "../../actions/post";
 import { Link } from "react-router-dom";
-const DashBoard = ({
-  getCurrentProfile,
-  auth: { user },
-  profile: { profile, loading },
-}) => {
+import { Card, Button } from "react-bootstrap";
+const DashBoard = ({ getPosts, auth: { user }, post: { loading, posts } }) => {
   useEffect(() => {
-    getCurrentProfile();
-  }, []);
-  return loading && profile === null ? (
+    getPosts();
+  }, [getPosts]);
+  return loading && posts === null ? (
     <Spinner />
   ) : (
-    <Fragment>
-      <h1 className="large text-primary">DashBoard</h1>
-
-      <p className="lead">
-        <i className="fas fa-user"></i>
-        Welcome {user && user.name}
-      </p>
-
-      {profile !== null ? (
-        <Fragment>has</Fragment>
-      ) : (
-        <Fragment>
-          <p>You havent yet setup a profile. Please add some info.</p>
-          <Link to="/get-posts" className=" btn btn-primary my-1">
-            View Post Collections
-          </Link>
-          <Link to="/create-post" className=" btn btn-primary my-1">
-            Wanna create new posts?
-          </Link>
-          <Link to="/my-posts" className=" btn btn-primary my-1">
-            View my posts
-          </Link>
-        </Fragment>
-      )}
-    </Fragment>
+    <div
+      style={{
+        flex: 1,
+        display: "flex",
+        justifyContent: "space-around",
+        flexWrap: "wrap",
+      }}
+    >
+      {posts.map((post) => (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: 300,
+            height: 300,
+            border: "2px solid black",
+            // margin: 10,
+          }}
+        >
+          <Card className="bg-dark text-white">
+            <Card.Img
+              src="https://img.freepik.com/free-vector/abstract-technology-particle-background_52683-25766.jpg?size=626&ext=jpg&ga=GA1.2.1611239267.1596240000"
+              alt="Card image"
+            />
+            <Card.ImgOverlay>
+              <Card.Title>Card title</Card.Title>
+              <Card.Text>
+                This is a wider card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer. This is a wider card with supporting text below as a
+                natural lead-in to additional content. This content is a little
+                bit longer. This is a wider card with supporting text below as a
+                natural lead-in to additional content. This content is a little
+                bit longer.
+              </Card.Text>
+              <Card.Text>Last updated 3 mins ago</Card.Text>
+            </Card.ImgOverlay>
+          </Card>
+        </div>
+      ))}
+    </div>
   );
 };
 
 DashBoard.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
+  getPosts: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
+  post: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile,
+  post: state.post,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(DashBoard);
+export default connect(mapStateToProps, { getPosts })(DashBoard);
